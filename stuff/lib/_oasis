@@ -1,0 +1,12 @@
+
+# +-------------------------------------------------------------------+
+# | Lib                                                               |
+# +-------------------------------------------------------------------+
+
+Library "serialLib-with-c"
+  Path: src/lib
+  Modules: SerialLib
+  CSources: serialLib_csvparser.h, serialLib_csvparser.c, serialLib_serialLib.c
+  BuildDepends     : model
+  CCOpt: -D OPTION_PASSED
+  

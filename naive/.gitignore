@@ -1,0 +1,24 @@
+# OASIS
+
+_build
+_tags
+*.native
+*.byte
+*.docdir
+*.mldylib
+*.mllib
+*.clib
+*.csv
+*.txt
+META
+setup.data
+setup.log
+setup.ml
+configure
+Makefile
+myocamlbuild.ml
+ws
+
+# EMACS
+*~
+#*#

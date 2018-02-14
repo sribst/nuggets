@@ -1,0 +1,60 @@
+OASISFormat:             0.4
+Name:                    ANORACS
+Version:                 0.1
+Synopsis:                An online, rapid and collaborative spreadsheet.
+Authors:                 Daniel El Ouraoui, Sylvain Ribstein, Elie Canonici,Paul Laforgue
+License:                 MIT
+Plugins:                 META (0.4), DevFiles (0.4)
+AlphaFeatures:           ocamlbuild_more_args
+BuildTools:              ocamlbuild
+OCamlVersion:            >= 4.04
+
+PreCleanCommand: find . -name '*~' -exec rm '{}' \;
+
+PostBuildCommand:
+    if [ -f "ws.native" ]; then
+    mv "ws.native" "ws"
+    else
+    mv "ws.byte" "ws"
+    fi
+
+# +-------------------------------------------------------------------+
+# | Toolkit                                                           |
+# +-------------------------------------------------------------------+
+
+Library toolkit
+  Install:               false
+  Path:                  src/toolkit
+  Modules:               Serial, FileInterface, Wheel, Utils
+  BuildDepends:          unix
+
+# +-------------------------------------------------------------------+
+# | Model                                                             |
+# +-------------------------------------------------------------------+
+
+Library model
+  Install          : false
+  Path             : src/model
+  Modules          : Log, Coord, CellValue
+  BuildDepends     : toolkit, lwt
+
+# +-------------------------------------------------------------------+
+# | Control                                                           |
+# +-------------------------------------------------------------------+
+
+Library control
+  Install          : false
+  Path             : src/control
+  Modules          : ParserChange, ParserSheet, EvalWheel, EvalConc
+  BuildDepends     : model, toolkit, angstrom, lwt, lwt.ppx, lwt.unix
+
+# +-------------------------------------------------------------------+
+# | Executable                                                        |
+# +-------------------------------------------------------------------+
+
+Executable ws
+  Install:               false
+  CompiledObject:        best
+  Path:                  src/
+  MainIs:                ws.ml
+  BuildDepends:		 toolkit, model, control

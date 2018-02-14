@@ -1,0 +1,23 @@
+* Apres évaluation :
+  - On a l'ensemble des formules (+ résultats) dans une liste ordonnée
+  dans l'ordre évalué (+ les formules non-évalué avec leurs résultats partiels)
+* zone d'interaction 
+** initialisation
+   on récupere l'ensemble des formules dans l'ordre qui dépendent de
+   cette zone (+ les formules evualuées partiellement)
+** ajout d'une valeur
+   on boucle sur le sous-ensemble des formule s
+   +- 1 si valeur = formule.valeur 
+   +- les formules réévalué dont il dépend 
+** ajout d'une formule 
+   on boucle sur le sous-ensemble des formules 
+   si la formule dépent d'une formules externe on la rajoute dans la
+   structure 
+   si on essaye de rajouter une formule déja dans la structure =>
+   nouveau cycle (cf plus bas)
+*** pas de cycle
+    on reévalue l'ensemble des résultats de toutes ses formules
+*** nouveau cycle 
+    Si nouveau cycle on ajoute dans cette structure l'ensemble des
+    formules dépendantes 
+    on efface les résultats obtenue à la premiere évaluation 
